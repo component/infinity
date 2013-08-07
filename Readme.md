@@ -26,7 +26,7 @@ infinity.refresh();
 
 ### infinity(el)
 
-  Initialize `infinity` with `el`. `el` can be either the window or an element with overflow.
+  Initialize `infinity` with `el`. `el` can be either the `window` or an element with overflow.
 
 ### infinity.add(el, ...)
 
