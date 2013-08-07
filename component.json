@@ -10,7 +10,9 @@
     "component/throttle": "*",
     "matthewmueller/debounce": "*"
   },
-  "development": {},
+  "development": {
+    "danzajdband/vanilla-masonry": "*"
+  },
   "license": "MIT",
   "main": "index.js",
   "scripts": [

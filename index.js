@@ -31,6 +31,7 @@ function infinity(el) {
   this.debounce = debounce(this.refresh.bind(this), 100, false);
   event.bind(el, 'scroll', this.throttle);
   event.bind(el, 'scroll', this.debounce);
+  event.bind(el, 'resize', this.debounce);
   this._load = function(){};
   this._unload = function(){};
 }
@@ -58,9 +59,33 @@ infinity.prototype.add = function(el) {
 };
 
 /**
+ * Remove an element.
+ *
+ * ex. infinity.remove(el)
+ *
+ * @param {Element} el
+ * @return {infinity}
+ * @api public
+ */
+
+infinity.prototype.remove = function(el) {
+  for (var i = 0, view; view = this.views[i]; i++) {
+    if (el == view.el) {
+      this.views.splice(i, 1);
+      break;
+    }
+  }
+
+  this.refresh();
+  return this;
+};
+
+
+/**
  * Get the coordinated of the box
  *
  * @return {Object} coords
+ * @api private
  */
 
 infinity.prototype.box = function() {
@@ -116,7 +141,7 @@ infinity.prototype.inView = function(pos, box) {
  * Is the element in the viewport?
  *
  * TODO: inViewport and inView could probably be consolidated
- * with some better maths
+ * with some better math
  *
  * @param {Object} pos
  * @param {Object} box
@@ -174,6 +199,10 @@ infinity.prototype.refresh = function() {
   this._box = this.box();
 
   // load / unload panes
+  //
+  // TODO: figure out a smarter way to not loop
+  // through all the elements time but maintain
+  // flexibility
   for (var i = 0, view; view = this.views[i]; i++) {
     var visible = this.visible(view);
     if (visible && !view.loaded) {
@@ -198,5 +227,6 @@ infinity.prototype.refresh = function() {
 infinity.prototype.unbind = function() {
   event.unbind(this.el, 'scroll', this.throttle);
   event.unbind(this.el, 'scroll', this.debounce);
+  event.unbind(this.el, 'resize', this.debounce);
   return this;
 };
