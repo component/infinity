@@ -54,7 +54,6 @@ infinity.prototype.add = function(el) {
   view.args = [].slice.call(arguments) || [];
   view.loaded = false;
   this.views.push(view);
-  this.refresh();
   return this;
 };
 
@@ -76,7 +75,6 @@ infinity.prototype.remove = function(el) {
     }
   }
 
-  this.refresh();
   return this;
 };
 
