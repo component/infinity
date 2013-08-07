@@ -1,1 +1,188 @@
-My Page
+<html>
+<head>
+  <title>infinity component</title>
+  <!-- <link rel="stylesheet" href="../build/build.css"> -->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+
+    .pane {
+      width: 200px;
+      height: 200px;
+      margin: 5px;
+      padding: 20px;
+      background: #27B4FC;
+      color: #094CA4;
+      border: 2px solid #094CA4;
+      font-size: 24px;
+    }
+
+    .pane.small {
+      width: 100px;
+      height: 100px;
+    }
+
+    .pane.long {
+      width: 400px;
+      height: 100px;
+    }
+
+    .pane.tall {
+      width: 100px;
+      height: 400px;
+    }
+
+    .pane.big {
+      width: 300px;
+      height: 300px;
+    }
+
+    .pane.unloaded {
+      color: #aaa;
+      background: whiteSmoke !important;
+      border: 2px dashed #aaa;
+    }
+
+    #log {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      margin-left: 50px;
+      padding: 20px;
+      font-size: 24px;
+      width: 200px;
+      height: 600px;
+      border: 1px solid #aaa;
+      overflow: auto;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>infinity component</h1>
+
+  <div id="container">
+    <div class="pane unloaded small">1</div>
+    <div class="pane unloaded tall">2</div>
+    <div class="pane unloaded big">3</div>
+    <div class="pane unloaded small">4</div>
+    <div class="pane unloaded small">5</div>
+    <div class="pane unloaded small">6</div>
+    <div class="pane unloaded small">7</div>
+    <div class="pane unloaded tall">8</div>
+    <div class="pane unloaded">9</div>
+    <div class="pane unloaded long">10</div>
+    <div class="pane unloaded">11</div>
+    <div class="pane unloaded small">12</div>
+    <div class="pane unloaded big">13</div>
+    <div class="pane unloaded tall">14</div>
+    <div class="pane unloaded">15</div>
+    <div class="pane unloaded">16</div>
+    <div class="pane unloaded big">17</div>
+    <div class="pane unloaded">18</div>
+    <div class="pane unloaded small">19</div>
+    <div class="pane unloaded">20</div>
+    <div class="pane unloaded big">21</div>
+    <div class="pane unloaded">22</div>
+    <div class="pane unloaded small">23</div>
+    <div class="pane unloaded tall">24</div>
+    <div class="pane unloaded small">25</div>
+    <div class="pane unloaded small">26</div>
+    <div class="pane unloaded">27</div>
+    <div class="pane unloaded long">28</div>
+    <div class="pane unloaded tall">29</div>
+    <div class="pane unloaded small">30</div>
+    <div class="pane unloaded big">31</div>
+    <div class="pane unloaded small">32</div>
+    <div class="pane unloaded long">33</div>
+    <div class="pane unloaded tall">34</div>
+    <div class="pane unloaded">35</div>
+    <div class="pane unloaded tall">36</div>
+    <div class="pane unloaded long">37</div>
+    <div class="pane unloaded">38</div>
+    <div class="pane unloaded big">39</div>
+    <div class="pane unloaded">40</div>
+    <div class="pane unloaded small">1</div>
+    <div class="pane unloaded tall">2</div>
+    <div class="pane unloaded big">3</div>
+    <div class="pane unloaded small">4</div>
+    <div class="pane unloaded small">5</div>
+    <div class="pane unloaded small">6</div>
+    <div class="pane unloaded small">7</div>
+    <div class="pane unloaded tall">8</div>
+    <div class="pane unloaded">9</div>
+    <div class="pane unloaded long">10</div>
+    <div class="pane unloaded">11</div>
+    <div class="pane unloaded small">12</div>
+    <div class="pane unloaded big">13</div>
+    <div class="pane unloaded tall">14</div>
+    <div class="pane unloaded">15</div>
+    <div class="pane unloaded">16</div>
+    <div class="pane unloaded big">17</div>
+    <div class="pane unloaded">18</div>
+    <div class="pane unloaded small">19</div>
+    <div class="pane unloaded">20</div>
+    <div class="pane unloaded big">21</div>
+    <div class="pane unloaded">22</div>
+    <div class="pane unloaded small">23</div>
+    <div class="pane unloaded tall">24</div>
+    <div class="pane unloaded small">25</div>
+    <div class="pane unloaded small">26</div>
+    <div class="pane unloaded">27</div>
+    <div class="pane unloaded long">28</div>
+    <div class="pane unloaded tall">29</div>
+    <div class="pane unloaded small">30</div>
+    <div class="pane unloaded big">31</div>
+    <div class="pane unloaded small">32</div>
+    <div class="pane unloaded long">33</div>
+    <div class="pane unloaded tall">34</div>
+    <div class="pane unloaded">35</div>
+    <div class="pane unloaded tall">36</div>
+    <div class="pane unloaded long">37</div>
+    <div class="pane unloaded">38</div>
+    <div class="pane unloaded big">39</div>
+    <div class="pane unloaded">40</div>
+  </div>
+
+  <div id="log"></div>
+
+  <script src="../build/build.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var infinity = require('infinity')(window);
+    var Masonry = require('vanilla-masonry');
+    var panes = document.querySelectorAll('.pane');
+    var masonry = new Masonry( container );
+
+
+    function Pane(el) {
+      this.el = el;
+      this.text = el.textContent;
+    }
+
+    infinity.load(function(el, pane) {
+      el.classList.remove('unloaded');
+      var entry = document.createElement('div');
+      entry.textContent = pane.text + ' loaded!';
+      log.insertBefore(entry, log.firstChild);
+    });
+
+    infinity.unload(function(el, pane) {
+      el.classList.add('unloaded');
+      var entry = document.createElement('div');
+      entry.textContent = pane.text + ' unloaded';
+      log.insertBefore(entry, log.firstChild);
+    });
+
+    for (var i = 0, len = panes.length; i < len; i++) {
+      infinity.add(panes[i], new Pane(panes[i]));
+    };
+
+  </script>
+</body>
+</html>
