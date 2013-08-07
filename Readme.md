@@ -9,6 +9,19 @@
 
     $ component install component/infinity
 
+## Example
+
+```js
+var infinity = require('infinity')(window);
+var panes = document.querySelectorAll('.pane');
+
+for(var i = 0, len = panes.length; i < len; i++) {
+  infinity.add(panes[i]);
+}
+
+infinity.refresh();
+```
+
 ## API
 
 ### infinity(el)
@@ -59,11 +72,13 @@ infinity.unload(function(el, view) {
 
 ### infinity.refresh()
 
-  Refresh, loading and unloading elements.
+  Refresh, loading and unloading elements. Call this
+  after adding elements, removing elements, or moving
+  elements programmatically.
 
-  Used internally but may need to be called
-  manually if you are programmatically adjusting
-  elements.
+```js
+infinity.refresh();
+```
 
 ### infinity.unbind()
 
