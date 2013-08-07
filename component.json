@@ -1,0 +1,19 @@
+{
+  "name": "infinity",
+  "repo": "component/infinity",
+  "description": "unload and reload panes while scrolling.",
+  "version": "0.0.1",
+  "keywords": ["infinity", "scrolling"],
+  "dependencies": {
+    "component/query": "*",
+    "component/event": "*",
+    "component/throttle": "*",
+    "matthewmueller/debounce": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
