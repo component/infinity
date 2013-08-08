@@ -875,7 +875,7 @@ function infinity(el) {\n\
   this.el = el;\n\
   this.isWindow = (el.self == el);\n\
   this.views = [];\n\
-  this._box = this.box();\n\
+  this._margin = 0;\n\
   this.throttle = throttle(this.refresh.bind(this), 200);\n\
   this.debounce = debounce(this.refresh.bind(this), 100, false);\n\
   event.bind(el, 'scroll', this.throttle);\n\
@@ -903,7 +903,6 @@ infinity.prototype.add = function(el) {\n\
   view.args = [].slice.call(arguments) || [];\n\
   view.loaded = false;\n\
   this.views.push(view);\n\
-  this.refresh();\n\
   return this;\n\
 };\n\
 \n\
@@ -925,7 +924,6 @@ infinity.prototype.remove = function(el) {\n\
     }\n\
   }\n\
 \n\
-  this.refresh();\n\
   return this;\n\
 };\n\
 \n\
@@ -939,17 +937,41 @@ infinity.prototype.remove = function(el) {\n\
 \n\
 infinity.prototype.box = function() {\n\
   var el = this.el;\n\
+  var margin = this._margin;\n\
+  var box = {};\n\
+\n\
   if (!this.isWindow) {\n\
-    return el.getBoundingClientRect();\n\
+    var rect = el.getBoundingClientRect();\n\
+    box.top = rect.top;\n\
+    box.left = rect.left;\n\
+    box.width = rect.width;\n\
+    box.height = rect.height;\n\
+  } else {\n\
+    box.top = 0;\n\
+    box.left = 0;\n\
+    box.height = el.innerHeight || document.documentElement.clientHeight;\n\
+    box.width = el.innerWidth || document.documentElement.clientWidth;\n\
   }\n\
 \n\
-  // handle window\n\
-  return {\n\
-    top: el.pageYOffset,\n\
-    left: el.pageXOffset,\n\
-    height: el.innerHeight || document.documentElement.clientHeight,\n\
-    width: el.innerWidth || document.documentElement.clientWidth\n\
-  };\n\
+  box.top -= margin;\n\
+  box.left -= margin;\n\
+  box.width += (margin * 2);\n\
+  box.height += (margin * 2);\n\
+\n\
+  return box;\n\
+};\n\
+\n\
+/**\n\
+ * Add margin to the box\n\
+ *\n\
+ * @param {Number} margin\n\
+ * @return {infinity}\n\
+ * @api public\n\
+ */\n\
+\n\
+infinity.prototype.margin = function(margin) {\n\
+  this._margin = margin;\n\
+  return this;\n\
 };\n\
 \n\
 /**\n\
@@ -1000,8 +1022,8 @@ infinity.prototype.inView = function(pos, box) {\n\
 \n\
 infinity.prototype.inViewport = function(pos, box) {\n\
   return (\n\
-    pos.bottom >= 0 &&\n\
-    pos.right >= 0 &&\n\
+    pos.bottom >= box.top &&\n\
+    pos.right >= box.left &&\n\
     pos.top <= box.height &&\n\
     pos.left <= box.width\n\
   );\n\
