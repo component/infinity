@@ -26,7 +26,7 @@ function infinity(el) {
   this.el = el;
   this.isWindow = (el.self == el);
   this.views = [];
-  this._box = this.box();
+  this._margin = 0;
   this.throttle = throttle(this.refresh.bind(this), 200);
   this.debounce = debounce(this.refresh.bind(this), 100, false);
   event.bind(el, 'scroll', this.throttle);
@@ -88,17 +88,41 @@ infinity.prototype.remove = function(el) {
 
 infinity.prototype.box = function() {
   var el = this.el;
+  var margin = this._margin;
+  var box = {};
+
   if (!this.isWindow) {
-    return el.getBoundingClientRect();
+    var rect = el.getBoundingClientRect();
+    box.top = rect.top;
+    box.left = rect.left;
+    box.width = rect.width;
+    box.height = rect.height;
+  } else {
+    box.top = 0;
+    box.left = 0;
+    box.height = el.innerHeight || document.documentElement.clientHeight;
+    box.width = el.innerWidth || document.documentElement.clientWidth;
   }
 
-  // handle window
-  return {
-    top: el.pageYOffset,
-    left: el.pageXOffset,
-    height: el.innerHeight || document.documentElement.clientHeight,
-    width: el.innerWidth || document.documentElement.clientWidth
-  };
+  box.top -= margin;
+  box.left -= margin;
+  box.width += (margin * 2);
+  box.height += (margin * 2);
+
+  return box;
+};
+
+/**
+ * Add margin to the box
+ *
+ * @param {Number} margin
+ * @return {infinity}
+ * @api public
+ */
+
+infinity.prototype.margin = function(margin) {
+  this._margin = margin;
+  return this;
 };
 
 /**
@@ -149,8 +173,8 @@ infinity.prototype.inView = function(pos, box) {
 
 infinity.prototype.inViewport = function(pos, box) {
   return (
-    pos.bottom >= 0 &&
-    pos.right >= 0 &&
+    pos.bottom >= box.top &&
+    pos.right >= box.left &&
     pos.top <= box.height &&
     pos.left <= box.width
   );

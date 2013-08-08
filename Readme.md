@@ -80,6 +80,16 @@ infinity.unload(function(el, view) {
 infinity.refresh();
 ```
 
+### infinity.margin(n)
+
+  Add "preload margin" to each side of the container.
+  This will allow you to start loading elements before
+  they appear in viewport. `n` defaults to `0`.
+
+  For example, for `infinity.margin(200)`, the `load`
+  function would trigger when the element is within
+  200px from being in view.
+
 ### infinity.unbind()
 
   Unbind all infinity events
