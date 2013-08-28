@@ -8,6 +8,13 @@
     "loading",
     "unload"
   ],
+  "dependencies": {
+    "query-component": "*",
+    "event-component": "*",
+    "throttleit": "*",
+    "debounce": "*",
+    "emitter-component": "*"
+  },
   "author": "Matthew Mueller",
   "license": "MIT",
   "component": {

@@ -8,7 +8,8 @@
     "component/query": "*",
     "component/event": "*",
     "component/throttle": "*",
-    "matthewmueller/debounce": "*"
+    "component/debounce": "*",
+    "component/emitter": "*"
   },
   "development": {
     "danzajdband/vanilla-masonry": "*"

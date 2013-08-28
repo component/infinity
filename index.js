@@ -6,6 +6,7 @@ var event = require('event');
 var query = require('query');
 var throttle = require('throttle');
 var debounce = require('debounce');
+var Emitter = require('emitter');
 
 /**
  * Export `infinity`
@@ -28,13 +29,17 @@ function infinity(el) {
   this.views = [];
   this._margin = 0;
   this.throttle = throttle(this.refresh.bind(this), 200);
-  this.debounce = debounce(this.refresh.bind(this), 100, false);
+  this.debounce = debounce(this.refresh.bind(this), 100);
   event.bind(el, 'scroll', this.throttle);
   event.bind(el, 'scroll', this.debounce);
   event.bind(el, 'resize', this.debounce);
-  this._load = function(){};
-  this._unload = function(){};
 }
+
+/**
+ * Mixin `Emitter`
+ */
+
+Emitter(infinity.prototype);
 
 /**
  * Add an element. You may pass any number of arguments
@@ -189,7 +194,7 @@ infinity.prototype.inViewport = function(pos, box) {
  */
 
 infinity.prototype.load = function(fn) {
-  this._load = fn;
+  this.on('load', fn);
   return this;
 };
 
@@ -202,7 +207,7 @@ infinity.prototype.load = function(fn) {
  */
 
 infinity.prototype.unload = function(fn) {
-  this._unload = fn;
+  this.on('unload', fn);
   return this;
 };
 
@@ -218,8 +223,11 @@ infinity.prototype.unload = function(fn) {
  */
 
 infinity.prototype.refresh = function() {
-  this._box = this.box();
+  var visibles = [];
+  var invisibles = [];
 
+  this._box = this.box();
+  console.log('called');
   // load / unload panes
   //
   // TODO: figure out a smarter way to not loop
@@ -228,10 +236,24 @@ infinity.prototype.refresh = function() {
   for (var i = 0, view; view = this.views[i]; i++) {
     var visible = this.visible(view);
     if (visible && !view.loaded) {
-      this._load.apply(this, view.args);
-      view.loaded = true;
+      visibles.push(view);
     } else if (!visible && view.loaded) {
-      this._unload.apply(this, view.args);
+      invisibles.push(view);
+    }
+  }
+
+  if (visibles.length) {
+    this.emit('loading');
+    for (var i = 0, view; view = visibles[i]; i++) {
+      this.emit.apply(this, ['load'].concat(view.args));
+      view.loaded = true;
+    }
+  }
+
+  if (invisibles.length) {
+    this.emit('unloading');
+    for (var i = 0, view; view = invisibles[i]; i++) {
+      this.emit.apply(this, ['unload'].concat(view.args));
       view.loaded = false;
     }
   }

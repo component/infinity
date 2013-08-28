@@ -22,6 +22,13 @@ for(var i = 0, len = panes.length; i < len; i++) {
 infinity.refresh();
 ```
 
+## Events
+
+* `loading`: called once before each visible `el` is loaded. useful for batch operations.
+* `load`: called when a `el` is to be loaded.
+* `unloading`: called once before each `el` is unloaded. useful for batch operations.
+* `unload`: called when an `el` is to be unloaded.
+
 ## API
 
 ### infinity(el)
