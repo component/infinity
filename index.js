@@ -142,6 +142,10 @@ infinity.prototype.visible = function(view) {
   var box = this._box;
   var pos = view.el.getBoundingClientRect();
 
+  // only load if our view has dimensions
+  if (0 === pos.width || 0 === pos.height) return false;
+
+  // check viewport if window otherwise view
   return (this.isWindow) ? this.inViewport(pos, box)
                          : this.inView(pos, box);
 };
@@ -227,7 +231,7 @@ infinity.prototype.refresh = function() {
   var invisibles = [];
 
   this._box = this.box();
-  console.log('called');
+
   // load / unload panes
   //
   // TODO: figure out a smarter way to not loop
