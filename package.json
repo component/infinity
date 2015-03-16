@@ -1,5 +1,5 @@
 {
-  "name": "infinity-component",
+  "name": "component-infinity",
   "version": "0.0.6",
   "description": "infinite scrolling with loading and unloading",
   "main": "index.js",
