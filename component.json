@@ -5,11 +5,11 @@
   "version": "0.0.5",
   "keywords": ["infinity", "scrolling"],
   "dependencies": {
-    "component/query": "*",
-    "component/event": "*",
-    "component/throttle": "*",
     "component/debounce": "*",
-    "component/emitter": "*"
+    "component/emitter": "*",
+    "component/event": "*",
+    "component/query": "*",
+    "component/throttle": "*"
   },
   "development": {
     "danzajdband/vanilla-masonry": "*"
