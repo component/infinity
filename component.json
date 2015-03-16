@@ -2,8 +2,11 @@
   "name": "infinity",
   "repo": "component/infinity",
   "description": "unload and reload panes while scrolling.",
-  "version": "0.0.5",
-  "keywords": ["infinity", "scrolling"],
+  "version": "0.0.6",
+  "keywords": [
+    "infinity",
+    "scrolling"
+  ],
   "dependencies": {
     "component/debounce": "*",
     "component/emitter": "*",

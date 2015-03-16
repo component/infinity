@@ -1,4 +1,10 @@
 
+0.0.6 / 2015-03-16
+==================
+
+  * package: add "browser" mapping for browserify
+  * component: sort deps
+
 0.0.5 / 2013-09-19
 ==================
 
